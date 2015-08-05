@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AppConfigTransforms</id>
+    <version>$version$</version>
+    <title>App Config Transforms</title>
+    <authors>Dan Turner</authors>
+    <owners>Dan Turner</owners>
+    <licenseUrl>https://raw.githubusercontent.com/dan-turner/AppConfigTransforms/release/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/dan-turner/AppConfigTransforms</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Copies "App.*.config" transform files as a series of "{AssemblyName}.*.config" files to the output directory.</summary>
+    <description>Copies all "App.*.config" transform files as a series of corresponding of "{AssemblyName}.*.config" files to the build output directory regardless of the chosen build configuration.</description>
+    <tags>App.config transform XDT</tags>
+  </metadata>
+  <files>
+    <file src="AppConfigTransforms.targets" target="build" />
+  </files>
+</package>

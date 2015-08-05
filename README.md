@@ -1,0 +1,8 @@
+# AppConfigTransforms
+A simple MSBuild task to copy `App.*.config` transforms to the output folder as `{AssemblyName}.*.config`.
+
+## Usage
+`Install-Package AppConfigTransforms`
+
+## Why?
+With continuous integration you tend to want to produce artifacts that are capable of targeting multiple environments. The out-of-the-box transforms provide convenient methods for overriding bits of config, but the mechanism for applying them is tightly coupled to build configurations. This has given rise to stuff like [Jason Stangroome](https://github.com/jstangroome)'s `CodeAssassin.ConfigTransform` package which is a great solution for eagerly transforming all configs at build time. But sometimes you want to defer the application of transforms until after the build, such as at deployment time. Maybe you want the flexibility to apply multiple transforms, maybe you don't know all the final config values upfront. For a web application the fix is simple, mark your `Web.*.config` transforms as `Content` and they will happily appear in web deployment packages next to their associated `Web.config`. For class libraries such as test projects, it's not quite as simple. The `App.config` file gets renamed to `{AssemblyName}.dll.config` as it's put in to the output folder. There could also be multiple `.config` files in the output folder, which means there's no trivial way to work backwards from `App.*.config` to find it's associated parent. This package solves that problem by renaming transform files to match the `{AssemblyName}.dll.*.config` convention, at build time where the name of the output assembly is well known.

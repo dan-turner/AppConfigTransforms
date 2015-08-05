@@ -1,0 +1,26 @@
+version: 0.9.{build}
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+nuget:
+  disable_publish_on_pr: true
+before_build:
+  - nuget restore
+build:
+  project: AppConfigTransforms.sln
+  verbosity: minimal
+artifacts:
+  - path: .\output\**\*.nupkg
+    name: Nuget
+after_test:
+  - ps: .\scripts\AfterTest.ps1 -Version $env:APPVEYOR_BUILD_VERSION
+deploy:
+  - provider: NuGet
+    on:
+      branch: release
+    api_key:
+      secure: BzEi67DHlyLzsiGnBBjxwf3OkCNAH5FQbxE2wfwTZyhQU945JAasOt66rY+P9shn
+    artifact: Nuget
